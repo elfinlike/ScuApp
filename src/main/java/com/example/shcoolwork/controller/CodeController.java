@@ -1,6 +1,6 @@
 package com.example.shcoolwork.controller;
 
-import com.aliyuncs.exceptions.ClientException;
+
 import com.example.shcoolwork.service.CodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ public class CodeController {
     private CodeService codeService;
 
     @GetMapping("/getCode")
-    public String getCode(@RequestParam String phone) throws ClientException {
+    public String getCode(@RequestParam String phone)  {
         String code = generateCode();
      // 将验证码和手机号存储到数据库或缓存中
         codeService.keep(phone,code);

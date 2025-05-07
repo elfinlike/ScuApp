@@ -63,8 +63,7 @@
         </dependency>
 
 
-<!--导入Ali云短信验证maven-->
-        <!--        短信服务-->
+
 
         <!--        Spring注解器依赖-->
         <!--        SpringBoot注解器-->

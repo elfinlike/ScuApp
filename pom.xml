@@ -62,8 +62,12 @@
             <scope>test</scope>
         </dependency>
 
-
-
+<!--AliOss-->
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>3.17.4</version>
+        </dependency>
 
         <!--        Spring注解器依赖-->
         <!--        SpringBoot注解器-->

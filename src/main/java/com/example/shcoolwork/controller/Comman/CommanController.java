@@ -1,4 +1,4 @@
-package com.example.shcoolwork.controller;
+package com.example.shcoolwork.controller.Comman;
 
 import com.example.shcoolwork.Entity.Result;
 import com.example.shcoolwork.utils.AliOSSUtils;
@@ -15,7 +15,6 @@ import java.io.IOException;
 
 @RestController
 @Slf4j
-@RequestMapping("/upload")
 public class CommanController {
     @Autowired
     private AliOSSUtils aliOSSUtils;

@@ -2,7 +2,9 @@ package com.example.shcoolwork.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.shcoolwork.Entity.Result;
+import com.example.shcoolwork.utils.BaseContext;
 import com.example.shcoolwork.utils.JwtUtils;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +31,10 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
         //检验令牌是否有效
         try{
-            JwtUtils.parseJWT(jwt);
+            Claims claims =JwtUtils.parseJWT(jwt);
+            Integer id=Integer.valueOf(claims.get("id").toString());
+            BaseContext.setCurrentId(id);
+            log.info("当前学生ID为{}",id);
         }catch (Exception e){
             log.info("当前令牌不合法");
             Result<Object> error = Result.error("NOT_LOGIN");

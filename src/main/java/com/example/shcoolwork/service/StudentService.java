@@ -1,5 +1,10 @@
 package com.example.shcoolwork.service;
 
+import com.example.shcoolwork.Entity.DTO.RegistrationDTO;
+import com.example.shcoolwork.Entity.User;
+
 public interface StudentService {
-    void check(String account, String password);
+    User check(String account, String password);
+
+    String register(RegistrationDTO registrationDTO);
 }

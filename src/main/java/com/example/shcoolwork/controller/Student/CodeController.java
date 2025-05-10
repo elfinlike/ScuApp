@@ -1,4 +1,4 @@
-package com.example.shcoolwork.controller;
+package com.example.shcoolwork.controller.Student;
 
 
 import com.example.shcoolwork.service.CodeService;

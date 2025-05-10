@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shcoolwork.mapper.PostingMapper">
+    <insert id="addPosting" useGeneratedKeys="true" keyProperty="id">
+        insert into posting (user_id,category_id, abstract_content,create_time, update_time,compus,enclosure,allow_comment) VALUES
+        (#{userId},#{categoryId},#{abstractContent},#{createTime},#{updateTime},#{compus},#{enclosure},#{allowComment})
+    </insert>
+</mapper>

@@ -5,16 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PostingDetail implements Serializable {
+public class Like {
     private Integer id;
-    private String detail;
+    private Integer userID;
     private Integer postingId;
-    private Short contactType;
-    private String contact;
 }

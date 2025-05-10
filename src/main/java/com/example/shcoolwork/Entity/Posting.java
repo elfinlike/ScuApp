@@ -26,4 +26,6 @@ public class Posting implements Serializable {
     private Short compus;
     private Short enclosure;
     private Integer tipOff;
+
+    private Short allowComment;
 }

@@ -2,6 +2,8 @@ package com.example.shcoolwork.service.Impl;
 
 import com.example.shcoolwork.Entity.*;
 import com.example.shcoolwork.Entity.DTO.PostingDTO;
+import com.example.shcoolwork.Entity.DTO.PostingListDTO;
+import com.example.shcoolwork.Entity.VO.PostingListVO;
 import com.example.shcoolwork.Entity.VO.PostingVO;
 import com.example.shcoolwork.mapper.CommentMapper;
 import com.example.shcoolwork.mapper.LikeMapper;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -98,7 +101,7 @@ public class PostingServiceImpl implements PostingService {
         //获取发帖人的信息
         User user=userMapper.getByUserId(posting.getUserId());
 
-        postingVO.setUserImage(user.getImage());
+        postingVO.setAvatar(user.getAvatar());
         postingVO.setUsername(user.getUsername());
 
         //本人是否点赞
@@ -108,5 +111,33 @@ public class PostingServiceImpl implements PostingService {
         else
             postingVO.setLiked(false);
         return postingVO;
+    }
+
+    @Override
+    public List<PostingListVO> getList(PostingListDTO postingListDTO) {
+        //首先根据分类来进行获取数据，两种，一种是最新消息，另一种是最热消息；
+        List<PostingListVO> postingListVOS=new ArrayList<>();
+        List<Posting> postings=new ArrayList<>();
+        if(postingListDTO.getSortType().equals("hot")){
+            postings=postingMapper.getHotList(postingListDTO);
+        } else if (postingListDTO.getSortType().equals("new")) {
+            postings=postingMapper.getNewList(postingListDTO);
+        }
+
+        for (Posting posting : postings) {
+            PostingListVO postingListVO=PostingListVO.builder()
+                    .id(posting.getId())
+                    .abstractContent(posting.getAbstractContent())
+                    .readNum(posting.getReadNum())
+                    .createTime(posting.getCreateTime())
+                    .build();
+            List<String> images=postingMapper.getImages(posting.getId());
+            postingListVO.setImages(images);
+            User user=userMapper.getId(posting.getUserId());
+            postingListVO.setUsername(user.getUsername());
+            postingListVO.setAvatar(user.getAvatar());
+            postingListVOS.add(postingListVO);
+        }
+        return postingListVOS;
     }
 }

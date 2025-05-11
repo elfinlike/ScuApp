@@ -21,7 +21,7 @@ public class RegistrationDTO implements Serializable {
 
     private String password;
 
-    private String image;
+    private String avatar;
 
     private Short compus;
 

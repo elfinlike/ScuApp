@@ -6,7 +6,7 @@
 
     <insert id="add">
         insert into user
-        (username, password, compus, enclosure, unit, phone, image, create_time, update_time, status, del_flag, student_id) VALUES
-         (#{username},#{password},#{compus},#{enclosure},#{unit},#{phone},#{image},#{createTime},#{updateTime},#{status},#{delFlag},#{studentId})
+        (username, password, compus, enclosure, unit, phone, avatar, create_time, update_time, status, del_flag, student_id) VALUES
+         (#{username},#{password},#{compus},#{enclosure},#{unit},#{phone},#{avatar},#{createTime},#{updateTime},#{status},#{delFlag},#{studentId})
     </insert>
 </mapper>

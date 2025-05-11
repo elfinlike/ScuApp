@@ -1,13 +1,18 @@
 package com.example.shcoolwork.controller.Posting;
 
 import com.example.shcoolwork.Entity.DTO.PostingDTO;
+import com.example.shcoolwork.Entity.DTO.PostingListDTO;
 import com.example.shcoolwork.Entity.Result;
+import com.example.shcoolwork.Entity.VO.PostingListVO;
 import com.example.shcoolwork.Entity.VO.PostingVO;
 import com.example.shcoolwork.service.PostingService;
-import com.example.shcoolwork.utils.BaseContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -29,5 +34,21 @@ public class PostingController {
         log.info("查看的贴子ID");
         PostingVO postingVO=postingService.getDetail(id);
         return Result.success(postingVO);
+    }
+
+    @GetMapping("/list")
+    public Result<List<PostingListVO>> getList(@RequestParam(required = false)String sortType,
+                                              @RequestParam(required = false) Integer categoryId,
+                                              @RequestParam(required = false)String lastTime){
+        log.info("排序类型、分类名、最新时间分别为:{},{},{}",sortType,categoryId,lastTime);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime LastTime=LocalDateTime.parse(lastTime,formatter);
+        PostingListDTO postingListDTO=PostingListDTO.builder()
+                .sortType(sortType)
+                .categoryId(categoryId)
+                .lastTime(LastTime)
+                .build();
+        List<PostingListVO> postingVOs=postingService.getList(postingListDTO);
+        return Result.success(postingVOs);
     }
 }

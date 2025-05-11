@@ -1,5 +1,6 @@
 package com.example.shcoolwork.mapper;
 
+import com.example.shcoolwork.Entity.DTO.PostingListDTO;
 import com.example.shcoolwork.Entity.Posting;
 import com.example.shcoolwork.Entity.PostingDetail;
 import com.example.shcoolwork.Entity.PostingImage;
@@ -30,4 +31,9 @@ public interface PostingMapper {
 
     @Select("select image from posting_image where posting_id=#{id}")
     List<String> getImages(Integer id);
+
+
+    List<Posting> getHotList(PostingListDTO postingListDTO);
+
+    List<Posting> getNewList(PostingListDTO postingListDTO);
 }

@@ -7,4 +7,28 @@
         insert into posting (user_id,category_id, abstract_content,create_time, update_time,compus,enclosure,allow_comment) VALUES
         (#{userId},#{categoryId},#{abstractContent},#{createTime},#{updateTime},#{compus},#{enclosure},#{allowComment})
     </insert>
+    <select id="getHotList" resultType="com.example.shcoolwork.Entity.Posting">
+        select * from posting
+        <where>
+            <if test="categoryId!=null">
+                category_id=#{categoryId}
+            </if>
+            <if test="lastTime!=null">
+                and create_time &lt;= #{lastTime}
+            </if>
+            order by hot_score
+        </where>
+    </select>
+    <select id="getNewList" resultType="com.example.shcoolwork.Entity.Posting">
+        select * from posting
+        <where>
+            <if test="categoryId!=null">
+                category_id=#{categoryId}
+            </if>
+            <if test="lastTime!=null">
+                and create_time &lt;= #{lastTime}
+            </if>
+            order by create_time
+        </where>
+    </select>
 </mapper>

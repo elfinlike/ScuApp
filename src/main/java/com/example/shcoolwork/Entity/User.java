@@ -21,7 +21,7 @@ private Short compus;
 private Short enclosure;
 private Short unit;
 private String phone;
-private String image;
+private String avatar;
 private LocalDateTime createTime;
 private LocalDateTime updateTime;
 private Short status;

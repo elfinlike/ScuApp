@@ -22,7 +22,7 @@ public class PostingVO implements Serializable{
 
     private List<String> images;//*
 
-    private String userImage;//*
+    private String avatar;//*
 
     private String username;//*
 

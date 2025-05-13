@@ -17,7 +17,7 @@ public class User implements Serializable {
 private Integer id;
 private String username;
 private String password;
-private Short compus;
+private Short campus;
 private Short enclosure;
 private Short unit;
 private String phone;

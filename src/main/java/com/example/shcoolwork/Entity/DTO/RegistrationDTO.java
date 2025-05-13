@@ -23,7 +23,7 @@ public class RegistrationDTO implements Serializable {
 
     private String avatar;
 
-    private Short compus;
+    private Short campus;
 
     private Short enclosure;
 

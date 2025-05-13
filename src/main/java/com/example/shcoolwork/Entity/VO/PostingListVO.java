@@ -17,9 +17,21 @@ import java.util.List;
 public class PostingListVO implements Serializable {
     private Integer id;//posting
     private String abstractContent;//posting
+    private String content;//posting
+
+    private Boolean isHot;
+    private Double hotScore;
+    private Integer module;
+
     private List<String> images;//postImage
     private String avatar;//user
     private String username;//user
     private LocalDateTime createTime;//posting
     private Integer readNum;//posting
+
+
+
+
+
+
 }

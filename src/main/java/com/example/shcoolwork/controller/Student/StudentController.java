@@ -17,6 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/student")
 @Slf4j
+@CrossOrigin("*")
 public class StudentController {
 
     @Autowired
@@ -53,6 +54,7 @@ public class StudentController {
     public Result<User> getInfo(){
         Integer id= BaseContext.getCurrentId();
         User user=userMapper.getId(id);
+        log.info("获取学生信息：{}", user);
         user.setPassword(null);
         return Result.success(user);
     }

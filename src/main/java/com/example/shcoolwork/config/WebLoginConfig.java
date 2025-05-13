@@ -20,8 +20,9 @@ public class WebLoginConfig implements WebMvcConfigurer {
 
         //添加不需要拦截的路径
         List<String> exPaths = List.of(
-                "/**/login",
-                "/**/register");
+                "/student/login",
+                "/student/register",
+                "/upload");
 
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/**")

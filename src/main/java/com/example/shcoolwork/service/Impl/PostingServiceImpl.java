@@ -124,12 +124,18 @@ public class PostingServiceImpl implements PostingService {
             postings=postingMapper.getNewList(postingListDTO);
         }
 
+
+
         for (Posting posting : postings) {
             PostingListVO postingListVO=PostingListVO.builder()
                     .id(posting.getId())
                     .abstractContent(posting.getAbstractContent())
                     .readNum(posting.getReadNum())
                     .createTime(posting.getCreateTime())
+                    .module(posting.getModule())
+                    .hotScore(posting.getHotScore())
+                    .isHot(posting.getHotScore() > 100)
+                    .content("aaaaaaaaa")
                     .build();
             List<String> images=postingMapper.getImages(posting.getId());
             postingListVO.setImages(images);

@@ -22,7 +22,7 @@ public class PostingVO implements Serializable{
 
     private List<String> images;//*
 
-    private String avatar;//*
+    private String avatar ;//*
 
     private String username;//*
 
@@ -33,6 +33,7 @@ public class PostingVO implements Serializable{
     private Integer readNum;//*
 
     private boolean liked;
+
 
     private List<Comment> comments;//*
 }

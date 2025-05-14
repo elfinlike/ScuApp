@@ -10,13 +10,13 @@
     <select id="getHotList" resultType="com.example.shcoolwork.Entity.Posting">
         select * from posting
         <where>
+            del_flag=1
             <if test="categoryId!=null">
                 category_id=#{categoryId}
             </if>
             <if test="lastTime!=null">
                 and create_time &lt; #{lastTime}
             </if>
-
         </where>
         order by hot_score desc
     </select>
@@ -25,13 +25,13 @@
     <select id="getNewList" resultType="com.example.shcoolwork.Entity.Posting">
         select * from posting
         <where>
+            del_flag=1
             <if test="categoryId!=null">
-                category_id=#{categoryId}
+                and category_id=#{categoryId}
             </if>
             <if test="lastTime!=null">
-                and create_time &lt; #{lastTime}
+                and create_time &lt;#{lastTime}
             </if>
-
         </where>
         order by create_time desc
     </select>

@@ -58,4 +58,11 @@ public class PostingController {
 
         return Result.success(postingVOs);
     }
+
+    @GetMapping("/myposts")
+    public Result<List<PostingListVO>> getMyPosts(@RequestParam(required = false) String title){
+        log.info("自己发的贴子模糊查询"+title);
+        List<PostingListVO> postingListVOS=postingService.getMyPosts(title);
+        return Result.success(postingListVOS);
+    }
 }

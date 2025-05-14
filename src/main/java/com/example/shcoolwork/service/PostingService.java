@@ -13,4 +13,6 @@ public interface PostingService {
     PostingVO getDetail(Integer id);
 
     List<PostingListVO> getList(PostingListDTO postingListDTO);
+
+    List<PostingListVO> getMyPosts(String title);
 }

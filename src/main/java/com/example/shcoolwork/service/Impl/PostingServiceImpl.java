@@ -87,12 +87,12 @@ public class PostingServiceImpl implements PostingService {
                 .build();
 
         //根据贴子ID获取详细内容
-        String detail=postingMapper.getDetial(id);
+        String detail=postingMapper.getDetialByPostId(id);
 
         postingVO.setDetail(detail);
 
         //获取图片列表
-        List<String> images=postingMapper.getImages(id);
+        List<String> images=postingMapper.getImagesByPostId(id);
 
         postingVO.setImages(images);
         //获取评论列表
@@ -112,6 +112,8 @@ public class PostingServiceImpl implements PostingService {
             postingVO.setLiked(true);
         else
             postingVO.setLiked(false);
+
+        postingMapper.addReadNum(id);
         return postingVO;
     }
 
@@ -137,13 +139,40 @@ public class PostingServiceImpl implements PostingService {
                     .module(posting.getModule())
                     .hotScore(posting.getHotScore())
                     .isHot(posting.getHotScore() > 100)
-                    .content(postingMapper.getDetial(posting.getId()))
+                    .content(postingMapper.getDetialByPostId(posting.getId()))
                     .build();
-            List<String> images=postingMapper.getImages(posting.getId());
+            List<String> images=postingMapper.getImagesByPostId(posting.getId());
             postingListVO.setImages(images);
             User user=userMapper.getId(posting.getUserId());
             postingListVO.setUsername(user.getUsername());
             postingListVO.setAvatar(user.getAvatar());
+            postingListVOS.add(postingListVO);
+        }
+        return postingListVOS;
+    }
+
+    @Override
+    public List<PostingListVO> getMyPosts(String title) {
+        Integer userId=BaseContext.getCurrentId();
+        List<Posting> postings=postingMapper.getByUserIdAndTitle(userId,title);
+        List<PostingListVO> postingListVOS=new ArrayList<>();
+        for (Posting posting : postings) {
+            PostingListVO postingListVO=PostingListVO.builder()
+                    .id(posting.getId())
+                    .abstractContent(posting.getAbstractContent())
+                    .hotScore(posting.getHotScore())
+                    .module(posting.getModule())
+                    .delFlag(posting.getDelFlag())
+                    .createTime(posting.getCreateTime())
+                    .readNum(posting.getReadNum())
+                    .isHot(posting.getHotScore()>100)
+                    .content(postingMapper.getDetialByPostId(posting.getId()))
+                    .images(postingMapper.getImagesByPostId(posting.getId()))
+                    .build();
+
+            User user=userMapper.getId(userId);
+            postingListVO.setAvatar(user.getAvatar());
+            postingListVO.setUsername(user.getUsername());
             postingListVOS.add(postingListVO);
         }
         return postingListVOS;

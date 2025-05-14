@@ -16,12 +16,18 @@ import java.util.List;
 @Builder
 public class PostingListVO implements Serializable {
     private Integer id;//posting
-    private String abstractContent;//posting
-    private String content;//posting
 
-    private Boolean isHot;
-    private Double hotScore;
-    private Integer module;
+    private String abstractContent;//posting
+
+    private String content;//detail
+
+    private Boolean isHot;//无需查表
+
+    private Double hotScore;//posting
+
+    private Integer module;//posting 替换categoryId
+
+    private Short delFlag;//posting
 
     private List<String> images;//postImage
     private String avatar;//user

@@ -45,8 +45,10 @@ public class PostingServiceImpl implements PostingService {
         Posting posting=new Posting();
         BeanUtils.copyProperties(postingDTO,posting);
         posting.setUserId(BaseContext.getCurrentId());
+        posting.setEnclosure(userMapper.getId(BaseContext.getCurrentId()).getEnclosure());
         posting.setCreateTime(LocalDateTime.now());
         posting.setUpdateTime(LocalDateTime.now());
+        posting.setModule(postingDTO.getCategoryId());
         System.out.println("1...");
         postingMapper.addPosting(posting);
         System.out.println("2........");
@@ -135,7 +137,7 @@ public class PostingServiceImpl implements PostingService {
                     .module(posting.getModule())
                     .hotScore(posting.getHotScore())
                     .isHot(posting.getHotScore() > 100)
-                    .content("aaaaaaaaa")
+                    .content(postingMapper.getDetial(posting.getId()))
                     .build();
             List<String> images=postingMapper.getImages(posting.getId());
             postingListVO.setImages(images);

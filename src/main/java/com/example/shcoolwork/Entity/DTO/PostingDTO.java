@@ -17,7 +17,7 @@ public class PostingDTO implements Serializable {
     private Integer categoryId;
     private String detail;
     private List<String> images;
-    private Short compus;
+    private Short campus;
     private Short enclosure;
     private Short allowComment;
 }

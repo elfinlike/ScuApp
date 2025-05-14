@@ -23,7 +23,7 @@ public class Posting implements Serializable {
     private LocalDateTime updateTime;
     private Short delFlag;
     private Double hotScore;
-    private Short compus;
+    private Short campus;
     private Short enclosure;
     private Integer tipOff;
 

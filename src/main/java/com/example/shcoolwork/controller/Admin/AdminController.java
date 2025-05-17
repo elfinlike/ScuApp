@@ -28,20 +28,23 @@ public class AdminController {
     @GetMapping("/login")
     public Result<String> Login(@RequestParam String account, @RequestParam String password){
         log.info("前端传输的账户和密码为:{},{}",account,password);
+        if(account.length()!=8){
+            return Result.error("用户名格式错误");
+        }
+
         Admin admin =adminService.check(account,password);
         if (admin!=null){
             Map<String,Object> claims=new HashMap<>();
             claims.put("id",admin.getId());
             claims.put("username",admin.getUsername());
             claims.put("adminId",admin.getUserId());
+            claims.put("job",admin.getJob());
             JwtUtils.generateJwt(claims);
             String jwt=JwtUtils.generateJwt(claims);
             return Result.success(jwt);
         }
-
         return Result.error("账户或密码错误");
     }
-
 
     @GetMapping("/userInfo")
     public Result<Admin> getInfo(){
@@ -51,6 +54,4 @@ public class AdminController {
         admin.setPassword(null);
         return Result.success(admin);
     }
-
-
 }

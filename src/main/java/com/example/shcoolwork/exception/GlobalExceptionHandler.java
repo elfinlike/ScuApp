@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
 
-//    @ExceptionHandler(Exception.class)
-//    public Result<Object> handlerException(Exception ex){
-//
-//        return Result.error("出错了");
-//
-//
-//    }
+    @ExceptionHandler(Exception.class)
+    public Result<Object> handlerException(Exception ex){
+        ex.printStackTrace();
+        return Result.error("操作失败");
+    }
 }

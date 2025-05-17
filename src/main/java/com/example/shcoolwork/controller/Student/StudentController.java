@@ -1,12 +1,9 @@
 package com.example.shcoolwork.controller.Student;
 
 import com.example.shcoolwork.Entity.DTO.RegistrationDTO;
-import com.example.shcoolwork.Entity.Like;
 import com.example.shcoolwork.Entity.Result;
 import com.example.shcoolwork.Entity.User;
-import com.example.shcoolwork.Entity.VO.CommentVO;
 import com.example.shcoolwork.mapper.UserMapper;
-import com.example.shcoolwork.service.CommentService;
 import com.example.shcoolwork.service.StudentService;
 import com.example.shcoolwork.utils.BaseContext;
 import com.example.shcoolwork.utils.JwtUtils;
@@ -14,9 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -30,9 +25,6 @@ public class StudentController {
 
     @Autowired
     private UserMapper userMapper;
-
-    @Autowired
-    private CommentService commentService;
 
     @GetMapping("/login")
     public Result<String> Login(@RequestParam String account,@RequestParam String password){
@@ -66,17 +58,6 @@ public class StudentController {
         user.setPassword(null);
         return Result.success(user);
     }
-
-    @GetMapping("/message/comments")
-    public Result<List<CommentVO>> getComments(@RequestParam(required = false)LocalDateTime time){
-        log.info("贴子的id为：{},传入的时间参数为：{}",time);
-        if (time==null){
-            time=LocalDateTime.now();
-        }
-        List<CommentVO> commentVOS=commentService.getComments(time);
-        return Result.success(commentVOS);
-    }
-
 
 
 }

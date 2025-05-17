@@ -13,4 +13,6 @@ public interface BulletinService {
     List<BulletinVO> getGoingByType(String type);
 
     List<BulletinVO> getEndByType(String type);
+
+    List<BulletinVO> getMyBulletins();
 }

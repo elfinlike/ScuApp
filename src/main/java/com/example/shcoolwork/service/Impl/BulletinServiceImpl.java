@@ -79,28 +79,7 @@ public class BulletinServiceImpl implements BulletinService {
 
         List<Bulletin>  bulletins =  bulletinMapper.getGoingByType(flag);
 
-        List<BulletinVO> bulletinVOS = new ArrayList<>();
-        for (Bulletin bulletin : bulletins) {
-            BulletinVO bulletinVO = BulletinVO.builder()
-                    .title(bulletin.getTitle())
-                    .content(bulletin.getContent())
-                    .startTime(bulletin.getStartTime())
-                    .endTime(bulletin.getEndTime())
-                    .createTime(bulletin.getCreateTime())
-                    .build();
-
-            Admin admin = adminMapper.getById(bulletin.getUserId());
-            bulletinVO.setUserName(admin.getUsername());
-            bulletinVO.setJob(admin.getJob());
-            bulletinVOS.add(bulletinVO);
-        }
-
-
-        //按照最新发布时间排序
-        bulletinVOS.sort((o1, o2) ->
-                o2.getCreateTime().compareTo(o1.getCreateTime()));
-
-        return bulletinVOS;
+        return typeTransform(bulletins);
     }
 
     @Override
@@ -116,6 +95,21 @@ public class BulletinServiceImpl implements BulletinService {
 
         List<Bulletin>  bulletins =  bulletinMapper.getEndByType(flag);
 
+        return typeTransform(bulletins);
+    }
+
+    @Override
+    public List<BulletinVO> getMyBulletins() {
+        Integer userId = BaseContext.getCurrentId();
+
+        List<Bulletin>  bulletins =  bulletinMapper.getMyBulletins(userId);
+
+        return typeTransform(bulletins);
+    }
+
+
+
+    private List<BulletinVO> typeTransform(List<Bulletin> bulletins){
         List<BulletinVO> bulletinVOS = new ArrayList<>();
         for (Bulletin bulletin : bulletins) {
             BulletinVO bulletinVO = BulletinVO.builder()
@@ -139,6 +133,5 @@ public class BulletinServiceImpl implements BulletinService {
 
         return bulletinVOS;
     }
-
 
 }

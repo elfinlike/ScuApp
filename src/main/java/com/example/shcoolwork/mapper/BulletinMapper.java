@@ -18,4 +18,7 @@ public interface BulletinMapper {
     List<Bulletin> getGoingByType(Integer type);
 
     List<Bulletin> getEndByType(Integer type);
+
+    @Select("select * from bulletin where id=#{id}")
+    List<Bulletin> getMyBulletins(Integer userId);
 }

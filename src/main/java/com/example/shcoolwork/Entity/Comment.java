@@ -22,6 +22,7 @@ public class Comment implements Serializable {
     private LocalDateTime createTime;
     private Short delFlag;
     private String username;
+    private String avatar;
     private String image;
     private Integer replyId;
     private String replyUsername;

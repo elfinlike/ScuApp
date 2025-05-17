@@ -19,7 +19,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Admin getById(Integer id) {
 
-
         return adminMapper.getById(id);
     }
 }

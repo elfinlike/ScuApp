@@ -3,6 +3,7 @@ package com.example.shcoolwork.controller.Admin;
 
 import com.example.shcoolwork.Entity.Admin;
 import com.example.shcoolwork.Entity.Result;
+import com.example.shcoolwork.Entity.VO.AdminVO;
 import com.example.shcoolwork.mapper.AdminMapper;
 
 import com.example.shcoolwork.service.AdminService;
@@ -26,7 +27,7 @@ public class AdminController {
 
 
     @GetMapping("/login")
-    public Result<String> Login(@RequestParam String account, @RequestParam String password){
+    public Result<Object> Login(@RequestParam String account, @RequestParam String password){
         log.info("前端传输的账户和密码为:{},{}",account,password);
         if(account.length()!=8){
             return Result.error("用户名格式错误");
@@ -38,10 +39,10 @@ public class AdminController {
             claims.put("id",admin.getId());
             claims.put("username",admin.getUsername());
             claims.put("adminId",admin.getUserId());
-            claims.put("job",admin.getJob());
             JwtUtils.generateJwt(claims);
             String jwt=JwtUtils.generateJwt(claims);
-            return Result.success(jwt);
+            AdminVO adminVO = new AdminVO(jwt,admin.getJob());
+            return Result.success(adminVO);
         }
         return Result.error("账户或密码错误");
     }

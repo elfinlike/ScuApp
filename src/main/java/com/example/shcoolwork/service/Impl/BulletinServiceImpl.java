@@ -1,8 +1,10 @@
 package com.example.shcoolwork.service.Impl;
 
 
+import com.example.shcoolwork.Entity.Admin;
 import com.example.shcoolwork.Entity.Bulletin;
 import com.example.shcoolwork.Entity.DTO.BulletinDTO;
+import com.example.shcoolwork.Entity.VO.BulletinVO;
 import com.example.shcoolwork.mapper.AdminMapper;
 import com.example.shcoolwork.mapper.BulletinMapper;
 import com.example.shcoolwork.service.BulletinService;
@@ -12,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+import java.util.List;
 
 @Service
 public class BulletinServiceImpl implements BulletinService {
@@ -40,4 +45,100 @@ public class BulletinServiceImpl implements BulletinService {
         bulletinMapper.add(bulletin);
 
     }
+
+    @Override
+    public BulletinVO getById(Integer id) {
+        Bulletin bulletin =  bulletinMapper.getById(id);
+
+        BulletinVO bulletinVO = BulletinVO.builder()
+                .title(bulletin.getTitle())
+                .content(bulletin.getContent())
+                .startTime(bulletin.getStartTime())
+                .endTime(bulletin.getEndTime())
+                .createTime(bulletin.getCreateTime())
+                .build();
+
+        Admin admin = adminMapper.getById(bulletin.getUserId());
+        bulletinVO.setUserName(admin.getUsername());
+        bulletinVO.setJob(admin.getJob());
+
+        return bulletinVO;
+    }
+
+    @Override
+    public List<BulletinVO> getGoingByType(String type) {
+
+        int flag;
+        if(type.equals("school")){
+            flag=1;
+        }else if(type.equals("dorm")){
+            flag=2;
+        }else {
+            return null;
+        }
+
+        List<Bulletin>  bulletins =  bulletinMapper.getGoingByType(flag);
+
+        List<BulletinVO> bulletinVOS = new ArrayList<>();
+        for (Bulletin bulletin : bulletins) {
+            BulletinVO bulletinVO = BulletinVO.builder()
+                    .title(bulletin.getTitle())
+                    .content(bulletin.getContent())
+                    .startTime(bulletin.getStartTime())
+                    .endTime(bulletin.getEndTime())
+                    .createTime(bulletin.getCreateTime())
+                    .build();
+
+            Admin admin = adminMapper.getById(bulletin.getUserId());
+            bulletinVO.setUserName(admin.getUsername());
+            bulletinVO.setJob(admin.getJob());
+            bulletinVOS.add(bulletinVO);
+        }
+
+
+        //按照最新发布时间排序
+        bulletinVOS.sort((o1, o2) ->
+                o2.getCreateTime().compareTo(o1.getCreateTime()));
+
+        return bulletinVOS;
+    }
+
+    @Override
+    public List<BulletinVO> getEndByType(String type) {
+        int flag;
+        if(type.equals("school")){
+            flag=1;
+        }else if(type.equals("dorm")){
+            flag=2;
+        }else {
+            return null;
+        }
+
+        List<Bulletin>  bulletins =  bulletinMapper.getEndByType(flag);
+
+        List<BulletinVO> bulletinVOS = new ArrayList<>();
+        for (Bulletin bulletin : bulletins) {
+            BulletinVO bulletinVO = BulletinVO.builder()
+                    .title(bulletin.getTitle())
+                    .content(bulletin.getContent())
+                    .startTime(bulletin.getStartTime())
+                    .endTime(bulletin.getEndTime())
+                    .createTime(bulletin.getCreateTime())
+                    .build();
+
+            Admin admin = adminMapper.getById(bulletin.getUserId());
+            bulletinVO.setUserName(admin.getUsername());
+            bulletinVO.setJob(admin.getJob());
+            bulletinVOS.add(bulletinVO);
+        }
+
+
+        //按照最新发布时间排序
+        bulletinVOS.sort((o1, o2) ->
+                o2.getCreateTime().compareTo(o1.getCreateTime()));
+
+        return bulletinVOS;
+    }
+
+
 }

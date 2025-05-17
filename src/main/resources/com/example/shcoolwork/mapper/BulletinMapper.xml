@@ -9,14 +9,20 @@
             (#{userId},#{title},#{type},#{content},#{startTime},#{endTime},#{createTime})
     </insert>
 
+    <select id="getGoingByType" resultType="com.example.shcoolwork.Entity.Bulletin">
+        SELECT * FROM bulletin
+        WHERE type = #{type}
+        AND start_time &lt; NOW()
+        AND end_time > NOW()
+        ORDER BY create_time DESC;
+    </select>
 
-
-
-
-
-
-
-
+    <select id="getEndByType" resultType="com.example.shcoolwork.Entity.Bulletin">
+        SELECT * FROM bulletin
+        WHERE type = #{type}
+          AND end_time &lt; NOW()
+        ORDER BY create_time DESC;
+    </select>
 
 
 </mapper>

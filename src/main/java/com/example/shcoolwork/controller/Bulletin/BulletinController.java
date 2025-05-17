@@ -9,9 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Slf4j
-@RequestMapping("/bulletin")
+@RequestMapping("/bulletins")
 @CrossOrigin("*")
 public class BulletinController {
 
@@ -25,9 +27,24 @@ public class BulletinController {
         return Result.success("发布成功");
     }
 
-    public Result<BulletinVO> getBulletVO(@RequestParam Integer id){
-
-
+    @GetMapping("/detail")
+    public Result<BulletinVO> getBulletDetail(@RequestParam Integer id){
+        log.info("前端查询公告id:{}",id);
+        BulletinVO bulletinVO = bulletinService.getById(id);
+        return Result.success(bulletinVO);
     }
 
+    @GetMapping("/list/going/{type}")
+    public Result<List<BulletinVO>> getGoingByType(@PathVariable String type){
+        List<BulletinVO> list =  bulletinService.getGoingByType(type);
+
+        return Result.success(list);
+    }
+
+    @GetMapping("/list/end/{type}")
+    Result<List<BulletinVO>> getEndByType(@PathVariable String type) {
+        List<BulletinVO> list = bulletinService.getEndByType(type);
+
+        return Result.success(list);
+    }
 }

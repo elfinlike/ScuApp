@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class BulletinVO {
 
     private String userName;
-    private String job;
+    private Short job;
     private String title;
     private String content;
     private LocalDateTime startTime;

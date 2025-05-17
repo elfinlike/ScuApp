@@ -71,6 +71,11 @@ public class PostingServiceImpl implements PostingService {
         postingMapper.addPostDetail(postingDetail);
     }
 
+    /**
+     * 查看详细贴子内容
+     * @param id
+     * @return
+     */
     @Override
     public PostingVO getDetail(Integer id) {
         //先获取贴子的大概信息
@@ -150,6 +155,7 @@ public class PostingServiceImpl implements PostingService {
         }
         return postingListVOS;
     }
+
 
     @Override
     public List<PostingListVO> getMyPosts(String title) {

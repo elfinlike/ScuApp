@@ -23,6 +23,12 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private PostingMapper postingMapper;
+
+    /**
+     * 获取评论
+     * @param time
+     * @return
+     */
     @Override
     public List<CommentVO> getComments(LocalDateTime time) {
         List<CommentVO> commentVOS=new ArrayList<>();
@@ -36,7 +42,7 @@ public class CommentServiceImpl implements CommentService {
             for (Comment comment : comments) {
                 CommentVO commentVO=CommentVO.builder()
                         .commenTime(comment.getCreateTime())
-                        .avatar(comment.getImage())
+                        .avatar(comment.getAvatar())
                         .commentDetail(comment.getContent())
                         .username(comment.getUsername())
                         .abstractContent(posting.getAbstractContent())

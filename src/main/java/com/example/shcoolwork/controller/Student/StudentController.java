@@ -68,12 +68,12 @@ public class StudentController {
     }
 
     @GetMapping("/message/comments")
-    public Result<List<CommentVO>> getComments(@RequestParam Integer id, @RequestParam(required = false)LocalDateTime time){
-        log.info("贴子的id为：{},传入的时间参数为：{}",id,time);
+    public Result<List<CommentVO>> getComments(@RequestParam(required = false)LocalDateTime time){
+        log.info("贴子的id为：{},传入的时间参数为：{}",time);
         if (time==null){
             time=LocalDateTime.now();
         }
-        List<CommentVO> commentVOS=commentService.getComments(id,time);
+        List<CommentVO> commentVOS=commentService.getComments(time);
         return Result.success(commentVOS);
     }
 

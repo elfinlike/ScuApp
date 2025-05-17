@@ -7,6 +7,7 @@ import com.example.shcoolwork.mapper.CommentMapper;
 import com.example.shcoolwork.mapper.PostingMapper;
 import com.example.shcoolwork.service.CodeService;
 import com.example.shcoolwork.service.CommentService;
+import com.example.shcoolwork.utils.BaseContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,20 +24,25 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private PostingMapper postingMapper;
     @Override
-    public List<CommentVO> getComments(Integer id, LocalDateTime time) {
+    public List<CommentVO> getComments(LocalDateTime time) {
         List<CommentVO> commentVOS=new ArrayList<>();
-        List<Comment> comments=commentMapper.getByIdAndTime(id,time);
-        for (Comment comment : comments) {
-            CommentVO commentVO=CommentVO.builder()
-                    .avatar(comment.getImage())
-                    .username(comment.getUsername())
-                    .commenTime(comment.getCreateTime())
-                    .commentDetail(comment.getContent())
-                    .build();
-
+        //先根据用户id拿到所有满足要求的发的贴子的id
+        List<Integer> ids=postingMapper.getPostIdByUserId(BaseContext.getCurrentId(),time);
+        //然后根据获得的贴子id拿取评论
+        for (Integer id : ids) {
+            List<Comment> comments=commentMapper.getByPostId(id);
+            //获取文章标题
             Posting posting=postingMapper.getById(id);
-            commentVO.setAbstractContent(posting.getAbstractContent());
-            commentVOS.add(commentVO);
+            for (Comment comment : comments) {
+                CommentVO commentVO=CommentVO.builder()
+                        .commenTime(comment.getCreateTime())
+                        .avatar(comment.getImage())
+                        .commentDetail(comment.getContent())
+                        .username(comment.getUsername())
+                        .abstractContent(posting.getAbstractContent())
+                        .build();
+                commentVOS.add(commentVO);
+            }
         }
         return commentVOS;
     }

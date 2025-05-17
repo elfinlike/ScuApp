@@ -13,6 +13,6 @@ public interface CommentMapper {
     @Select("select * from comment where posting_id=#{id}")
     List<Comment> getByPostId(Integer id);
 
-    @Select("select * from comment where posting_id=#{id} and create_time<#{time} order by create_time")
+    @Select("select * from comment where user_id=#{id} and create_time<#{time} order by create_time")
     List<Comment> getByIdAndTime(Integer id, LocalDateTime time);
 }

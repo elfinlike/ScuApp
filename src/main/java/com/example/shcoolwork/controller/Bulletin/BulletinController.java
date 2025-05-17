@@ -34,17 +34,19 @@ public class BulletinController {
         return Result.success(bulletinVO);
     }
 
-    @GetMapping("/list/going/{type}")
+    @GetMapping("/list/{type}/going")
     public Result<List<BulletinVO>> getGoingByType(@PathVariable String type){
         List<BulletinVO> list =  bulletinService.getGoingByType(type);
 
         return Result.success(list);
     }
 
-    @GetMapping("/list/end/{type}")
+    @GetMapping("/list/{type}/end")
     Result<List<BulletinVO>> getEndByType(@PathVariable String type) {
         List<BulletinVO> list = bulletinService.getEndByType(type);
 
         return Result.success(list);
     }
+
+
 }

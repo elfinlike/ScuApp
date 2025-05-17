@@ -1,6 +1,7 @@
 package com.example.shcoolwork.mapper;
 
 import com.example.shcoolwork.Entity.Bulletin;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -21,4 +22,7 @@ public interface BulletinMapper {
 
     @Select("select * from bulletin where id=#{id}")
     List<Bulletin> getMyBulletins(Integer userId);
+
+    @Delete("delete from bulletin where id=#{id}")
+    void deleteById(Integer id);
 }

@@ -51,6 +51,7 @@ public class BulletinServiceImpl implements BulletinService {
         Bulletin bulletin =  bulletinMapper.getById(id);
 
         BulletinVO bulletinVO = BulletinVO.builder()
+                .id(bulletin.getId())
                 .title(bulletin.getTitle())
                 .content(bulletin.getContent())
                 .startTime(bulletin.getStartTime())
@@ -107,12 +108,17 @@ public class BulletinServiceImpl implements BulletinService {
         return typeTransform(bulletins);
     }
 
+    @Override
+    public void deleteById(Integer id) {
+        bulletinMapper.deleteById(id);
+    }
 
 
     private List<BulletinVO> typeTransform(List<Bulletin> bulletins){
         List<BulletinVO> bulletinVOS = new ArrayList<>();
         for (Bulletin bulletin : bulletins) {
             BulletinVO bulletinVO = BulletinVO.builder()
+                    .id(bulletin.getId())
                     .title(bulletin.getTitle())
                     .content(bulletin.getContent())
                     .startTime(bulletin.getStartTime())

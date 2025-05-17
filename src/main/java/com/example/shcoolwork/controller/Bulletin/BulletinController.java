@@ -56,5 +56,14 @@ public class BulletinController {
 
     }
 
+    @DeleteMapping("/delete/{id}")
+    public Result<String> deleteBulletins(@PathVariable Integer id){
+        log.info("前端要删除的公告id");
+        bulletinService.deleteById(id);
+
+        return Result.success("删除成功");
+    }
+
+
 
 }

@@ -13,6 +13,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 public class AdminDTO implements Serializable {
-    private String userId;
-    private String password;
+    private Integer id; // 前端不需要传
+    private String username;
+    private String phone;
+    private String avatar;
 }

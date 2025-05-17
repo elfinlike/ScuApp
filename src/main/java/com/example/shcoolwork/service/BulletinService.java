@@ -15,4 +15,6 @@ public interface BulletinService {
     List<BulletinVO> getEndByType(String type);
 
     List<BulletinVO> getMyBulletins();
+
+    void deleteById(Integer id);
 }

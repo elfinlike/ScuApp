@@ -2,6 +2,7 @@ package com.example.shcoolwork.controller.Admin;
 
 
 import com.example.shcoolwork.Entity.Admin;
+import com.example.shcoolwork.Entity.DTO.AdminDTO;
 import com.example.shcoolwork.Entity.Result;
 import com.example.shcoolwork.Entity.VO.AdminVO;
 import com.example.shcoolwork.mapper.AdminMapper;
@@ -55,4 +56,15 @@ public class AdminController {
         admin.setPassword(null);
         return Result.success(admin);
     }
+
+    @PutMapping("/update_info")
+    public Result<String> updateAdmin(@RequestBody AdminDTO adminDTO){
+        log.info("前端要修改的信息是：{}",adminDTO);
+        Integer id= BaseContext.getCurrentId();
+        adminDTO.setId(id);
+        adminService.updateInfo(adminDTO);
+
+        return Result.success();
+    }
+
 }

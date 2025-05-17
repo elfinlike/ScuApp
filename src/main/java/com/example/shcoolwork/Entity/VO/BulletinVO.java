@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 public class BulletinVO {
 
+    private Integer id;
     private String userName;
     private Short job;
     private String title;

@@ -22,7 +22,8 @@ public class WebLoginConfig implements WebMvcConfigurer {
         List<String> exPaths = List.of(
                 "/student/login",
                 "/student/register",
-                "/upload");
+                "/upload",
+                "/admin/login");
 
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/**")

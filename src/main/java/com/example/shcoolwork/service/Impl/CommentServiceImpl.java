@@ -1,10 +1,13 @@
 package com.example.shcoolwork.service.Impl;
 
 import com.example.shcoolwork.Entity.Comment;
+import com.example.shcoolwork.Entity.DTO.CommentDTO;
 import com.example.shcoolwork.Entity.Posting;
+import com.example.shcoolwork.Entity.User;
 import com.example.shcoolwork.Entity.VO.CommentVO;
 import com.example.shcoolwork.mapper.CommentMapper;
 import com.example.shcoolwork.mapper.PostingMapper;
+import com.example.shcoolwork.mapper.UserMapper;
 import com.example.shcoolwork.service.CodeService;
 import com.example.shcoolwork.service.CommentService;
 import com.example.shcoolwork.utils.BaseContext;
@@ -23,6 +26,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private PostingMapper postingMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     /**
      * 获取评论
@@ -51,5 +57,21 @@ public class CommentServiceImpl implements CommentService {
             }
         }
         return commentVOS;
+    }
+
+    @Override
+    public void addComment(CommentDTO commentDTO) {
+        Comment comment=Comment.builder()
+                .postingId(commentDTO.getPostId())
+                .image(commentDTO.getImage())
+                .Content(commentDTO.getContent())
+                .build();
+        User user=userMapper.getId(BaseContext.getCurrentId());
+        comment.setUserId(user.getId());
+        comment.setUsername(user.getUsername());
+        comment.setAvatar(user.getAvatar());
+        comment.setCreateTime(LocalDateTime.now());
+        comment.setLikeNum(0);
+        commentMapper.addComment(comment);
     }
 }

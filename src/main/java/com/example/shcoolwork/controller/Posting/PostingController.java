@@ -1,14 +1,17 @@
 package com.example.shcoolwork.controller.Posting;
 
+import com.example.shcoolwork.Entity.DTO.CommentDTO;
 import com.example.shcoolwork.Entity.DTO.PostingDTO;
 import com.example.shcoolwork.Entity.DTO.PostingListDTO;
 import com.example.shcoolwork.Entity.Result;
 import com.example.shcoolwork.Entity.VO.PostingListVO;
 import com.example.shcoolwork.Entity.VO.PostingVO;
+import com.example.shcoolwork.service.CommentService;
 import com.example.shcoolwork.service.PostingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -24,6 +27,8 @@ public class PostingController {
     @Autowired
     private PostingService postingService;
 
+    @Autowired
+    private CommentService commentService;
 
     @PostMapping("/publish")
     public Result<String> publish(@RequestBody PostingDTO postingDTO){
@@ -64,5 +69,12 @@ public class PostingController {
         log.info("自己发的贴子模糊查询"+title);
         List<PostingListVO> postingListVOS=postingService.getMyPosts(title);
         return Result.success(postingListVOS);
+    }
+
+    @PostMapping("/addComment")
+    public Result<String> addComments(@RequestBody CommentDTO commentDTO){
+        log.info("添加的评论内容为："+commentDTO);
+        commentService.addComment(commentDTO);
+        return Result.success();
     }
 }

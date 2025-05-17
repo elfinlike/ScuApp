@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -47,4 +48,7 @@ public interface PostingMapper {
 
     @Select("select * from posting where user_id=#{userId} and abstract_content like concat('%',#{title},'%')")
     List<Posting> getByUserIdAndTitle(Integer userId, String title);
+
+    @Select("select id from posting where user_id=#{currentId} and create_time<#{time} order by create_time desc")
+    List<Integer> getPostIdByUserId(Integer currentId, LocalDateTime time);
 }

@@ -62,41 +62,39 @@ public class BulletinServiceImpl implements BulletinService {
         Admin admin = adminMapper.getById(bulletin.getUserId());
         bulletinVO.setUserName(admin.getUsername());
         bulletinVO.setJob(admin.getJob());
+        bulletinVO.setEnclosure(admin.getEnclosure());
 
         return bulletinVO;
     }
 
     @Override
-    public List<BulletinVO> getGoingByType(String type) {
+    public List<BulletinVO> getGoingByType(Short type, Short enclosure) {
 
-        int flag;
-        if(type.equals("school")){
-            flag=1;
-        }else if(type.equals("dorm")){
-            flag=2;
-        }else {
-            return null;
+        if(type==1){
+            List<Bulletin>  bulletins = bulletinMapper.getGoingByType(type);
+            return typeTransform(bulletins);
+
+        }else if(type==2){
+            List<Bulletin>  bulletins =  bulletinMapper.getGoingByTypeAndEnlosure(type, enclosure);
+            return typeTransform(bulletins);
         }
+            return null;
 
-        List<Bulletin>  bulletins =  bulletinMapper.getGoingByType(flag);
-
-        return typeTransform(bulletins);
     }
 
     @Override
-    public List<BulletinVO> getEndByType(String type) {
-        int flag;
-        if(type.equals("school")){
-            flag=1;
-        }else if(type.equals("dorm")){
-            flag=2;
-        }else {
-            return null;
+    public List<BulletinVO> getEndByType(Short type, Short enclosure) {
+
+        if (type == 1) {
+            List<Bulletin>  bulletins = bulletinMapper.getEndByType(type);
+            return typeTransform(bulletins);
+        }else if(type ==2){
+            List<Bulletin>  bulletins =  bulletinMapper.getEndByTypeAndEnlosure(type, enclosure);
+            return typeTransform(bulletins);
         }
 
-        List<Bulletin>  bulletins =  bulletinMapper.getEndByType(flag);
+        return null;
 
-        return typeTransform(bulletins);
     }
 
     @Override
@@ -129,9 +127,10 @@ public class BulletinServiceImpl implements BulletinService {
             Admin admin = adminMapper.getById(bulletin.getUserId());
             bulletinVO.setUserName(admin.getUsername());
             bulletinVO.setJob(admin.getJob());
+            bulletinVO.setEnclosure(admin.getEnclosure());
+
             bulletinVOS.add(bulletinVO);
         }
-
 
         //按照最新发布时间排序
         bulletinVOS.sort((o1, o2) ->

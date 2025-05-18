@@ -5,19 +5,38 @@
 <mapper namespace="com.example.shcoolwork.mapper.BulletinMapper">
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id">
-        insert into bulletin (user_id, title, type, content, start_time, end_time, create_time) VALUES
-            (#{userId},#{title},#{type},#{content},#{startTime},#{endTime},#{createTime})
+        insert into bulletin (user_id, title, type, content,enclosure start_time, end_time, create_time) VALUES
+            (#{userId},#{title},#{type},#{content}, #{enclosure} ,#{startTime},#{endTime},#{createTime})
     </insert>
 
-    <select id="getGoingByType" resultType="com.example.shcoolwork.Entity.Bulletin">
+    <select id="getGoingByTypeAndEnlosure" resultType="com.example.shcoolwork.Entity.Bulletin">
         SELECT * FROM bulletin
         WHERE type = #{type}
+        AND enclosure = #{enclosure}
         AND start_time &lt; NOW()
         AND end_time > NOW()
         ORDER BY create_time DESC;
     </select>
 
-    <select id="getEndByType" resultType="com.example.shcoolwork.Entity.Bulletin">
+    <select id="getEndByTypeAndEnlosure" resultType="com.example.shcoolwork.Entity.Bulletin">
+        SELECT * FROM bulletin
+        WHERE type = #{type}
+          AND enclosure = #{enclosure}
+          AND end_time &lt; NOW()
+        ORDER BY create_time DESC;
+    </select>
+
+    <select id="getGoingByType" resultType="com.example.shcoolwork.Entity.Bulletin"
+            parameterType="java.lang.Short">
+        SELECT * FROM bulletin
+        WHERE type = #{type}
+          AND start_time &lt; NOW()
+          AND end_time > NOW()
+        ORDER BY create_time DESC;
+
+    </select>
+    <select id="getEndByType" resultType="com.example.shcoolwork.Entity.Bulletin"
+            parameterType="java.lang.Short">
         SELECT * FROM bulletin
         WHERE type = #{type}
           AND end_time &lt; NOW()

@@ -16,13 +16,17 @@ public interface BulletinMapper {
 
 
 
-    List<Bulletin> getGoingByType(Integer type);
+    List<Bulletin> getGoingByTypeAndEnlosure(Short type, Short enclosure);
 
-    List<Bulletin> getEndByType(Integer type);
+    List<Bulletin> getEndByTypeAndEnlosure(Short type, Short enclosure);
 
     @Select("select * from bulletin where id=#{id}")
     List<Bulletin> getMyBulletins(Integer userId);
 
     @Delete("delete from bulletin where id=#{id}")
     void deleteById(Integer id);
+
+    List<Bulletin> getGoingByType(Short type);
+
+    List<Bulletin> getEndByType(Short type);
 }

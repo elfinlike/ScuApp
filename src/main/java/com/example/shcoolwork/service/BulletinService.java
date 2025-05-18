@@ -10,9 +10,9 @@ public interface BulletinService {
 
     BulletinVO getById(Integer id);
 
-    List<BulletinVO> getGoingByType(String type);
+    List<BulletinVO> getGoingByType(Short type, Short enclosure);
 
-    List<BulletinVO> getEndByType(String type);
+    List<BulletinVO> getEndByType(Short type, Short enclosure);
 
     List<BulletinVO> getMyBulletins();
 

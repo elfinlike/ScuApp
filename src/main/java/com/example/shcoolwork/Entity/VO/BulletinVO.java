@@ -16,6 +16,7 @@ public class BulletinVO {
 
     private Integer id;
     private String userName;
+    private Short enclosure;
     private Short job;
     private String title;
     private String content;

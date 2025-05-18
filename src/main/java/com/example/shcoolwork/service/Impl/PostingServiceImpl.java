@@ -4,6 +4,7 @@ import com.example.shcoolwork.Entity.*;
 import com.example.shcoolwork.Entity.DTO.PostingDTO;
 import com.example.shcoolwork.Entity.DTO.PostingListDTO;
 import com.example.shcoolwork.Entity.DTO.ReportDTO;
+import com.example.shcoolwork.Entity.VO.MessageVO;
 import com.example.shcoolwork.Entity.VO.PostingListVO;
 import com.example.shcoolwork.Entity.VO.PostingVO;
 import com.example.shcoolwork.mapper.CommentMapper;
@@ -182,5 +183,20 @@ public class PostingServiceImpl implements PostingService {
     @Override
     public void addReport(ReportDTO reportDTO) {
         postingMapper.addReport(reportDTO.getPostId());
+    }
+
+    @Override
+    public List<MessageVO> getMessages(LocalDateTime currentTime) {
+        Integer userId=BaseContext.getCurrentId();
+        List<MessageVO> messageVOS=new ArrayList<>();
+        List<Posting> postings=postingMapper.getByUserId(userId);
+        for (Posting posting : postings) {
+            MessageVO messageVO= MessageVO.builder()
+                    .abstractContent(posting.getAbstractContent())
+                    .createTime(posting.getCreateTime())
+                    .build();
+            messageVOS.add(messageVO);
+        }
+        return messageVOS;
     }
 }

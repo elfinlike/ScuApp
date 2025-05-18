@@ -4,9 +4,11 @@ import com.example.shcoolwork.Entity.DTO.RegistrationDTO;
 import com.example.shcoolwork.Entity.Result;
 import com.example.shcoolwork.Entity.User;
 import com.example.shcoolwork.Entity.VO.CommentVO;
+import com.example.shcoolwork.Entity.VO.MessageVO;
 import com.example.shcoolwork.mapper.CommentMapper;
 import com.example.shcoolwork.mapper.UserMapper;
 import com.example.shcoolwork.service.CommentService;
+import com.example.shcoolwork.service.PostingService;
 import com.example.shcoolwork.service.StudentService;
 import com.example.shcoolwork.utils.BaseContext;
 import com.example.shcoolwork.utils.JwtUtils;
@@ -33,6 +35,9 @@ public class StudentController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private PostingService postingService;
 
     @GetMapping("/login")
     public Result<String> Login(@RequestParam String account,@RequestParam String password){
@@ -77,6 +82,14 @@ public class StudentController {
         return Result.success(commentVOS);
     }
 
+    @GetMapping("/message")
+    public Result<List<MessageVO>> getMessage(@RequestParam(required = false)LocalDateTime currentTime){
+        log.info("前端传回的当前时间为"+currentTime);
+        if (currentTime==null)
+            currentTime=LocalDateTime.now();
+        List<MessageVO> messageVOS=postingService.getMessages(currentTime);
+        return Result.success(messageVOS);
+    }
 
 }
 

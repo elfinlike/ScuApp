@@ -82,12 +82,13 @@ public class StudentController {
         return Result.success(commentVOS);
     }
 
-    @GetMapping("/message")
+    @GetMapping("/message/system")
     public Result<List<MessageVO>> getMessage(@RequestParam(required = false)LocalDateTime currentTime){
         log.info("前端传回的当前时间为"+currentTime);
         if (currentTime==null)
             currentTime=LocalDateTime.now();
         List<MessageVO> messageVOS=postingService.getMessages(currentTime);
+        System.out.println(messageVOS);
         return Result.success(messageVOS);
     }
 

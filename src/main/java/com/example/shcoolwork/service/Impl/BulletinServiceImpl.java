@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -31,6 +32,9 @@ public class BulletinServiceImpl implements BulletinService {
     public void add(BulletinDTO bulletinDTO) {
         Bulletin bulletin = new Bulletin();
         BeanUtils.copyProperties(bulletinDTO,bulletin);
+        bulletin.setStartTime(LocalDateTime.of(bulletinDTO.getStartTime(), LocalTime.MIN));
+        bulletin.setEndTime(LocalDateTime.of(bulletinDTO.getEndTime(), LocalTime.MAX));
+        System.out.println(bulletin);
         bulletin.setUserId(BaseContext.getCurrentId());
 
         Short job = adminMapper.getById(BaseContext.getCurrentId()).getJob();

@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class MessageVO {
-    private static final String msgTitle="贴子服务";
-    private static final String msgDetail="帖子内容审核已完成，发布成功！";
+    private final String msgTitle="贴子服务";
+    private final String msgDetail="帖子内容审核已完成，发布成功！";
     private String abstractContent;
     private LocalDateTime createTime;
 }

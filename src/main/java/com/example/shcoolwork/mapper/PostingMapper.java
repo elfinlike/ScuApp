@@ -51,4 +51,8 @@ public interface PostingMapper {
 
     @Select("select id from posting where user_id=#{currentId} and create_time<#{time} order by create_time desc")
     List<Integer> getPostIdByUserId(Integer currentId, LocalDateTime time);
+
+
+    @Update("update posting set tip_off=tip_off+1 where id=#{postId}")
+    void addReport(Integer postId);
 }

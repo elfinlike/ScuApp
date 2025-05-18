@@ -3,6 +3,7 @@ package com.example.shcoolwork.controller.Posting;
 import com.example.shcoolwork.Entity.DTO.CommentDTO;
 import com.example.shcoolwork.Entity.DTO.PostingDTO;
 import com.example.shcoolwork.Entity.DTO.PostingListDTO;
+import com.example.shcoolwork.Entity.DTO.ReportDTO;
 import com.example.shcoolwork.Entity.Result;
 import com.example.shcoolwork.Entity.VO.PostingListVO;
 import com.example.shcoolwork.Entity.VO.PostingVO;
@@ -75,6 +76,13 @@ public class PostingController {
     public Result<String> addComments(@RequestBody CommentDTO commentDTO){
         log.info("添加的评论内容为："+commentDTO);
         commentService.addComment(commentDTO);
+        return Result.success();
+    }
+
+    @PostMapping("/report")
+    public Result<String> report(@RequestBody ReportDTO reportDTO){
+        log.info("举报信息如下："+reportDTO.toString());
+        postingService.addReport(reportDTO);
         return Result.success();
     }
 }

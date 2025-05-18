@@ -2,6 +2,7 @@ package com.example.shcoolwork.service;
 
 import com.example.shcoolwork.Entity.DTO.PostingDTO;
 import com.example.shcoolwork.Entity.DTO.PostingListDTO;
+import com.example.shcoolwork.Entity.DTO.ReportDTO;
 import com.example.shcoolwork.Entity.VO.PostingListVO;
 import com.example.shcoolwork.Entity.VO.PostingVO;
 
@@ -15,4 +16,7 @@ public interface PostingService {
     List<PostingListVO> getList(PostingListDTO postingListDTO);
 
     List<PostingListVO> getMyPosts(String title);
+
+
+    void addReport(ReportDTO reportDTO);
 }

@@ -3,6 +3,7 @@ package com.example.shcoolwork.service.Impl;
 import com.example.shcoolwork.Entity.*;
 import com.example.shcoolwork.Entity.DTO.PostingDTO;
 import com.example.shcoolwork.Entity.DTO.PostingListDTO;
+import com.example.shcoolwork.Entity.DTO.ReportDTO;
 import com.example.shcoolwork.Entity.VO.PostingListVO;
 import com.example.shcoolwork.Entity.VO.PostingVO;
 import com.example.shcoolwork.mapper.CommentMapper;
@@ -176,5 +177,10 @@ public class PostingServiceImpl implements PostingService {
             postingListVOS.add(postingListVO);
         }
         return postingListVOS;
+    }
+
+    @Override
+    public void addReport(ReportDTO reportDTO) {
+        postingMapper.addReport(reportDTO.getPostId());
     }
 }

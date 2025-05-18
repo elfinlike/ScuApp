@@ -11,6 +11,7 @@
         select * from posting
         <where>
             del_flag=1
+            and tip_off &lt;=10
             <if test="categoryId!=null">
                 category_id=#{categoryId}
             </if>
@@ -26,6 +27,7 @@
         select * from posting
         <where>
             del_flag=1
+            and tip_off &lt;=10
             <if test="categoryId!=null">
                 and category_id=#{categoryId}
             </if>

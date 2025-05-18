@@ -75,7 +75,7 @@ public class BulletinServiceImpl implements BulletinService {
             return typeTransform(bulletins);
 
         }else if(type==2){
-            List<Bulletin>  bulletins =  bulletinMapper.getGoingByTypeAndEnlosure(type, enclosure);
+            List<Bulletin>  bulletins =  bulletinMapper.getGoingByTypeAndEnclosure(type, enclosure);
             return typeTransform(bulletins);
         }
             return null;
@@ -89,7 +89,7 @@ public class BulletinServiceImpl implements BulletinService {
             List<Bulletin>  bulletins = bulletinMapper.getEndByType(type);
             return typeTransform(bulletins);
         }else if(type ==2){
-            List<Bulletin>  bulletins =  bulletinMapper.getEndByTypeAndEnlosure(type, enclosure);
+            List<Bulletin>  bulletins =  bulletinMapper.getEndByTypeAndEnclosure(type, enclosure);
             return typeTransform(bulletins);
         }
 

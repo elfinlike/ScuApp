@@ -5,11 +5,11 @@
 <mapper namespace="com.example.shcoolwork.mapper.BulletinMapper">
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id">
-        insert into bulletin (user_id, title, type, content,enclosure start_time, end_time, create_time) VALUES
-            (#{userId},#{title},#{type},#{content}, #{enclosure} ,#{startTime},#{endTime},#{createTime})
+        insert into bulletin (user_id, title, type, content, start_time, end_time, create_time) VALUES
+            (#{userId},#{title},#{type},#{content}, #{startTime},#{endTime},#{createTime})
     </insert>
 
-    <select id="getGoingByTypeAndEnlosure" resultType="com.example.shcoolwork.Entity.Bulletin">
+    <select id="getGoingByTypeAndEnclosure" resultType="com.example.shcoolwork.Entity.Bulletin">
         SELECT * FROM bulletin
         WHERE type = #{type}
         AND enclosure = #{enclosure}
@@ -18,7 +18,7 @@
         ORDER BY create_time DESC;
     </select>
 
-    <select id="getEndByTypeAndEnlosure" resultType="com.example.shcoolwork.Entity.Bulletin">
+    <select id="getEndByTypeAndEnclosure" resultType="com.example.shcoolwork.Entity.Bulletin">
         SELECT * FROM bulletin
         WHERE type = #{type}
           AND enclosure = #{enclosure}

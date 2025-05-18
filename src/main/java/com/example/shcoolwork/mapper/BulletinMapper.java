@@ -15,10 +15,9 @@ public interface BulletinMapper {
     Bulletin getById(Integer id);
 
 
+    List<Bulletin> getGoingByTypeAndEnclosure(Short type, Short enclosure);
 
-    List<Bulletin> getGoingByTypeAndEnlosure(Short type, Short enclosure);
-
-    List<Bulletin> getEndByTypeAndEnlosure(Short type, Short enclosure);
+    List<Bulletin> getEndByTypeAndEnclosure(Short type, Short enclosure);
 
     @Select("select * from bulletin where id=#{id}")
     List<Bulletin> getMyBulletins(Integer userId);

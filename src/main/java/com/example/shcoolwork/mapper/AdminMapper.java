@@ -14,6 +14,5 @@ public interface AdminMapper {
     @Select("select * from admin where id = #{id}")
     Admin getById(Integer id);
 
-
     void update(Admin admin);
 }

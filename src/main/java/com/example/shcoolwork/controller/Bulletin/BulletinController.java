@@ -65,7 +65,7 @@ public class BulletinController {
      * @return 公告列表
      */
     @GetMapping("/list/end")
-    public Result<List<BulletinVO>> getEndByType(Short type, Short enclosure) {
+    public Result<List<BulletinVO>> getEndByType(@RequestParam Short type, @RequestParam Short enclosure) {
         List<BulletinVO> list = bulletinService.getEndByType(type, enclosure);
 
         return Result.success(list);

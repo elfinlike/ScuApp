@@ -10,20 +10,27 @@
     </insert>
 
     <select id="getGoingByTypeAndEnclosure" resultType="com.example.shcoolwork.Entity.Bulletin">
-        SELECT * FROM bulletin
+/*        SELECT * FROM bulletin
         WHERE type = #{type}
-        AND enclosure = #{enclosure}
-        AND start_time &lt; NOW()
-        AND end_time > NOW()
-        ORDER BY create_time DESC;
+        AND enclosure = #{enclosure}*/
+        SELECT  b.id as id, b.user_id as user_id, b.title as title, b.type as type, b.content as content, b.start_time as start_time, b.end_time as end_time, b.create_time as create_time
+        FROM bulletin as b, admin as a
+        WHERE b.type = #{type}
+        AND b.user_id=a.id
+        AND a.enclosure = #{enclosure}
+        AND b.start_time &lt; NOW()
+        AND b.end_time > NOW()
+        ORDER BY b.create_time DESC;
     </select>
 
     <select id="getEndByTypeAndEnclosure" resultType="com.example.shcoolwork.Entity.Bulletin">
-        SELECT * FROM bulletin
-        WHERE type = #{type}
-          AND enclosure = #{enclosure}
-          AND end_time &lt; NOW()
-        ORDER BY create_time DESC;
+        SELECT  b.id as id, b.user_id as user_id, b.title as title, b.type as type, b.content as content, b.start_time as start_time, b.end_time as end_time, b.create_time as create_time
+        FROM bulletin as b, admin as a
+        WHERE b.type = #{type}
+          AND b.user_id=a.id
+          AND a.enclosure = #{enclosure}
+          AND b.end_time &lt; NOW()
+        ORDER BY b.create_time DESC;
     </select>
 
     <select id="getGoingByType" resultType="com.example.shcoolwork.Entity.Bulletin"

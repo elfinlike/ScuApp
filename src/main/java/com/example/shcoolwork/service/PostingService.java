@@ -23,4 +23,6 @@ public interface PostingService {
     void addReport(ReportDTO reportDTO);
 
     List<MessageVO> getMessages(LocalDateTime currentTime);
+
+    List<PostingListVO> getListDorm(Integer enclosure, LocalDateTime lastTime);
 }

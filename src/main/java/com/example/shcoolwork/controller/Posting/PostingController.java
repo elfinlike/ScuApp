@@ -85,4 +85,13 @@ public class PostingController {
         postingService.addReport(reportDTO);
         return Result.success();
     }
+
+    @GetMapping("/listdorm")
+    public Result<List<PostingListVO>> getListDorm(@RequestParam(required = false)Integer enclosure,
+                                                   @RequestParam(required = false)LocalDateTime lastTime){
+
+        log.info("传回的围合数据为：{},传回的时间数据为：{},",enclosure,lastTime);
+        List<PostingListVO>postingListVOS=postingService.getListDorm(enclosure,lastTime);
+        return Result.success(postingListVOS);
+    }
 }

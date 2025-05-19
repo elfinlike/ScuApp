@@ -199,4 +199,32 @@ public class PostingServiceImpl implements PostingService {
         }
         return messageVOS;
     }
+
+    @Override
+    public List<PostingListVO> getListDorm(Integer enclosure, LocalDateTime lastTime) {
+        if (lastTime==null)
+            lastTime=LocalDateTime.now();
+        List<PostingListVO> postingListVOS=new ArrayList<>();
+        List<Posting> postings=postingMapper.getListDorm(enclosure,lastTime);
+
+        for (Posting posting : postings) {
+            PostingListVO postingListVO=PostingListVO.builder()
+                    .id(posting.getId())
+                    .abstractContent(posting.getAbstractContent())
+                    .readNum(posting.getReadNum())
+                    .createTime(posting.getCreateTime())
+                    .module(posting.getModule())
+                    .hotScore(posting.getHotScore())
+                    .isHot(posting.getHotScore() > 100)
+                    .content(postingMapper.getDetialByPostId(posting.getId()))
+                    .build();
+            List<String> images=postingMapper.getImagesByPostId(posting.getId());
+            postingListVO.setImages(images);
+            User user=userMapper.getId(posting.getUserId());
+            postingListVO.setUsername(user.getUsername());
+            postingListVO.setAvatar(user.getAvatar());
+            postingListVOS.add(postingListVO);
+        }
+        return postingListVOS;
+    }
 }

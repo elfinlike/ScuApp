@@ -55,4 +55,7 @@ public interface PostingMapper {
 
     @Update("update posting set tip_off=tip_off+1 where id=#{postId}")
     void addReport(Integer postId);
+
+    @Select("select * from posting where enclosure=#{enclosure} and tip_off<=10 and del_flag=1 and create_time<=#{lastTime}")
+    List<Posting> getListDorm(Integer enclosure, LocalDateTime lastTime);
 }

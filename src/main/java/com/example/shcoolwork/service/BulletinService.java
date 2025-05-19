@@ -1,8 +1,10 @@
 package com.example.shcoolwork.service;
 
 import com.example.shcoolwork.Entity.DTO.BulletinDTO;
+import com.example.shcoolwork.Entity.VO.BulletinMessageVO;
 import com.example.shcoolwork.Entity.VO.BulletinVO;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface BulletinService {
@@ -17,4 +19,6 @@ public interface BulletinService {
     List<BulletinVO> getMyBulletins();
 
     void deleteById(Integer id);
+
+    List<BulletinMessageVO> getMessages(LocalDateTime currentTime);
 }

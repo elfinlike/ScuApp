@@ -5,17 +5,22 @@ import com.example.shcoolwork.Entity.Admin;
 import com.example.shcoolwork.Entity.DTO.AdminDTO;
 import com.example.shcoolwork.Entity.Result;
 import com.example.shcoolwork.Entity.VO.AdminVO;
+import com.example.shcoolwork.Entity.VO.BulletinMessageVO;
+import com.example.shcoolwork.Entity.VO.MessageVO;
 import com.example.shcoolwork.mapper.AdminMapper;
 
 import com.example.shcoolwork.service.AdminService;
 
+import com.example.shcoolwork.service.BulletinService;
 import com.example.shcoolwork.utils.BaseContext;
 import com.example.shcoolwork.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -25,6 +30,9 @@ import java.util.Map;
 public class AdminController {
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private BulletinService bulletinService;
 
 
     @GetMapping("/login")
@@ -65,6 +73,17 @@ public class AdminController {
         adminService.updateInfo(adminDTO);
 
         return Result.success();
+    }
+
+
+    @GetMapping("/message/system")
+    public Result<List<BulletinMessageVO>> getMessage(@RequestParam(required = false) LocalDateTime currentTime){
+        log.info("前端传回的当前时间为"+currentTime);
+        if (currentTime==null)
+            currentTime=LocalDateTime.now();
+        List<BulletinMessageVO> messageVOS=bulletinService.getMessages(currentTime);
+        System.out.println(messageVOS);
+        return Result.success(messageVOS);
     }
 
 }

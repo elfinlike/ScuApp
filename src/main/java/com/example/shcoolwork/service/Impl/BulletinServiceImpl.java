@@ -4,7 +4,10 @@ package com.example.shcoolwork.service.Impl;
 import com.example.shcoolwork.Entity.Admin;
 import com.example.shcoolwork.Entity.Bulletin;
 import com.example.shcoolwork.Entity.DTO.BulletinDTO;
+import com.example.shcoolwork.Entity.Posting;
+import com.example.shcoolwork.Entity.VO.BulletinMessageVO;
 import com.example.shcoolwork.Entity.VO.BulletinVO;
+import com.example.shcoolwork.Entity.VO.MessageVO;
 import com.example.shcoolwork.mapper.AdminMapper;
 import com.example.shcoolwork.mapper.BulletinMapper;
 import com.example.shcoolwork.service.BulletinService;
@@ -113,6 +116,21 @@ public class BulletinServiceImpl implements BulletinService {
     @Override
     public void deleteById(Integer id) {
         bulletinMapper.deleteById(id);
+    }
+
+    @Override
+    public List<BulletinMessageVO> getMessages(LocalDateTime currentTime) {
+        Integer userId=BaseContext.getCurrentId();
+        List<BulletinMessageVO> messageVOS=new ArrayList<>();
+        List<Bulletin> bulletins=bulletinMapper.getByUserId(userId);
+        for (Bulletin bulletin : bulletins) {
+            BulletinMessageVO messageVO= BulletinMessageVO.builder()
+                    .abstractContent(bulletin.getContent())
+                    .createTime(bulletin.getCreateTime())
+                    .build();
+            messageVOS.add(messageVO);
+        }
+        return messageVOS;
     }
 
 
